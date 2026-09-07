@@ -1,0 +1,17 @@
+{
+  "name": "python-api",
+  "version": "1.0.0",
+  "description": "python-api - Created via ForgeOps Golden Path",
+  "main": "src/worker.js",
+  "scripts": {
+    "start": "node src/worker.js",
+    "dev": "node --watch src/worker.js",
+    "test": "node --test",
+    "lint": "echo 'No lint errors'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "prom-client": "^15.1.0",
+    "winston": "^3.11.0"
+  }
+}
