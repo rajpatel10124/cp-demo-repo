@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: python-api
+  description: python-api - Created via ForgeOps Golden Path
+  tags:
+    - nodejs
+    - worker
+    - queue-consumer
+    - golden-path
+    - development
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "9090"
+    github.com/project-slug: rajpatel10124/cp-demo-repo
+spec:
+  type: service
+  lifecycle: development
+  owner: team-backend
+  system: ecommerce-system
