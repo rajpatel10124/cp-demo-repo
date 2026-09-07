@@ -1,0 +1,8 @@
+site_name: 'python-api TechDocs'
+site_description: 'python-api - Created via ForgeOps Golden Path'
+
+plugins:
+  - techdocs-core
+
+nav:
+  - Home: index.md
