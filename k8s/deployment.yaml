@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-api
+  namespace: development
+  labels:
+    app.kubernetes.io/name: python-api
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/part-of: ecommerce-system
+    owner: team-backend
+    environment: development
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: python-api
+  template:
+    metadata:
+      labels:
+        app: python-api
+        owner: team-backend
+        environment: development
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: python-api
+          image: rajpatel10124/python-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9090
+              name: metrics
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 300m
+              memory: 512Mi
+          env:
+            - name: NODE_ENV
+              value: development
+            - name: WORKER_CONCURRENCY
+              value: "5"
+            - name: HEALTH_PORT
+              value: "9090"
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 9090
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 9090
+            initialDelaySeconds: 5
+            periodSeconds: 5
